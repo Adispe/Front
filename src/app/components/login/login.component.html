@@ -1,7 +1,7 @@
 <div class="example-container mat-elevation-z8">
   <div class="example-loading-shade" *ngIf="isLoadingResults">
   </div>
-  <mat-card class="example-card">
+  <mat-card class="example-card" @fadeAnimation>
     <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
       <h2>Log In</h2>
       <mat-form-field class="example-full-width">
