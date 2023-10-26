@@ -74,19 +74,26 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   onFormSubmit(): void {
     this.isLoadingResults = true;
-    this.authService.login(this.loginForm.value, "password").subscribe({
-      next: (res: any) => {
-        this.isLoadingResults = false;
-        this.authService.authenticate();
-        this.authService.setToken(res.token);
-        this.openSnackBar();
-        this.router.navigate(["/dashboard"]);
-      },
-      error: (err: any) => {
-        console.log(err);
-        this.isLoadingResults = false;
-      },
-    });
+    if (this.authService.login(this.loginForm.value, "password")) {
+      this.isLoadingResults = false;
+      this.authService.authenticate();
+      this.authService.setToken('milk');
+      this.openSnackBar();
+      this.router.navigate(["/"]);
+    }
+    // this.authService.login(this.loginForm.value, "password").subscribe({
+    //   next: (res: any) => {
+    //     this.isLoadingResults = false;
+    //     this.authService.authenticate();
+    //     this.authService.setToken(res.token);
+    //     this.openSnackBar();
+    //     this.router.navigate(["/dashboard"]);
+    //   },
+    //   error: (err: any) => {
+    //     console.log(err);
+    //     this.isLoadingResults = false;
+    //   },
+    // });
   }
 
   openSnackBar() {
