@@ -1,0 +1,37 @@
+<mat-card class="card">
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Addresse</mat-label>
+      <input
+        type="text"
+        matInput
+        [formControl]="myControl"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option
+          *ngFor="let option of filteredOptions | async"
+          [value]="option"
+        >
+          {{ option.address }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  <button
+    mat-icon-button
+    color="primary"
+    aria-label="Example icon button with a home icon"
+    (click)="moveToUserLocation()"
+  >
+    <mat-icon>my_location</mat-icon>
+  </button>
+</mat-card>
+<google-map
+  class="google-maps"
+  height="93%"
+  width="100%"
+  [zoom]="zoom"
+  [center]="center"
+  [options]="options"
+></google-map>
