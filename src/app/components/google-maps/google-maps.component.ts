@@ -100,4 +100,7 @@ export class GoogleMapsComponent {
       console.error("Geolocation is not supported by this browser.");
     }
   }
+  takeScreenshot(){
+    
+  }
 }
