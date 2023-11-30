@@ -14,6 +14,8 @@ export class AuthService {
   login(email: string, password: string) {
     if(email === 'test' && password === 'test') {
       return true
+    } else {
+      return false
     }
     const url = `${this.apiUrl}/login`;
     const body = { email, password };
