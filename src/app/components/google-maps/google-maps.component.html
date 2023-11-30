@@ -32,11 +32,15 @@
   <mat-icon>fullscreen</mat-icon>
 </button>
 
-<google-map
-  class="google-maps"
-  height="93%"
-  width="100%"
-  [zoom]="zoom"
-  [center]="center"
-  [options]="options"
-></google-map>
+
+
+<div #screen class="screen">
+  <google-map
+    class="google-maps"
+    height="93%"
+    width="100%"
+    [zoom]="zoom"
+    [center]="center"
+    [options]="options"
+  ></google-map>
+</div>

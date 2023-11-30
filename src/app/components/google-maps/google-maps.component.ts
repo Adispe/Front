@@ -1,6 +1,8 @@
-import { Component } from "@angular/core";
+import { Component, ElementRef, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Observable, startWith, map } from "rxjs";
+import { NgxCaptureService } from 'ngx-capture';
+import { tap } from "rxjs";
 
 @Component({
   selector: "app-google-maps",
@@ -8,6 +10,10 @@ import { Observable, startWith, map } from "rxjs";
   styleUrls: ["./google-maps.component.css"],
 })
 export class GoogleMapsComponent {
+
+  @ViewChild('screen', { static: true }) screen: ElementRef | any;
+
+  mapElement:any;
   zoom = 40;
   public myControl = new FormControl<string | any>("");
   center!: google.maps.LatLngLiteral;
@@ -33,8 +39,11 @@ export class GoogleMapsComponent {
     ],
   };
 
-  constructor() {}
+  constructor(private captureService:NgxCaptureService) {}
 
+  ngAfterViewInit() {
+    this.mapElement = this.screen.nativeElement;
+  }
   ngOnInit() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.center = {
@@ -100,7 +109,12 @@ export class GoogleMapsComponent {
       console.error("Geolocation is not supported by this browser.");
     }
   }
+
   takeScreenshot(){
-    
+    this.captureService.getImage(this.mapElement,true).pipe(
+      tap(img => {
+        console.log("screenshot taken : "+img)
+      })
+    ).subscribe()
   }
 }
