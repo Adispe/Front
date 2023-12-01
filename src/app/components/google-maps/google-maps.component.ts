@@ -3,6 +3,8 @@ import { FormControl } from "@angular/forms";
 import { Observable, startWith, map } from "rxjs";
 import { NgxCaptureService } from 'ngx-capture';
 import { tap } from "rxjs";
+import { MapOption } from "src/app/helpers/helper";
+import {GoogleMap} from "@angular/google-maps";
 
 @Component({
   selector: "app-google-maps",
@@ -13,31 +15,12 @@ export class GoogleMapsComponent {
 
   @ViewChild('screen', { static: true }) screen: ElementRef | any;
 
+
+  mapoptions=MapOption;
   mapElement:any;
-  zoom = 40;
+  
   public myControl = new FormControl<string | any>("");
   center!: google.maps.LatLngLiteral;
-  options: google.maps.MapOptions = {
-    mapTypeId: "hybrid",
-    zoomControl: false,
-    scrollwheel: false,
-    disableDoubleClickZoom: true,
-    maxZoom: 15,
-    minZoom: 8,
-    disableDefaultUI: true,
-    styles: [
-      {
-        featureType: "all",
-        elementType: "labels",
-        stylers: [{ visibility: "off" }],
-      },
-      {
-        featureType: 'road',
-        elementType: 'geometry',
-        stylers: [{ visibility: 'off' }]
-      }
-    ],
-  };
 
   constructor(private captureService:NgxCaptureService) {}
 
@@ -63,13 +46,13 @@ export class GoogleMapsComponent {
   }
 
   zoomIn() {
-    if (this.zoom && this.options.maxZoom && this.zoom < this.options.maxZoom)
-      this.zoom++;
+    if (this.mapoptions.zoom && this.mapoptions.maxZoom && this.mapoptions.zoom < this.mapoptions.maxZoom)
+      this.mapoptions.zoom++;
   }
 
   zoomOut() {
-    if (this.zoom && this.options.minZoom && this.zoom > this.options.minZoom)
-      this.zoom--;
+    if (this.mapoptions.zoom && this.mapoptions.minZoom && this.mapoptions.zoom > this.mapoptions.minZoom)
+      this.mapoptions.zoom--;
   }
 
   mockAutoCompleteOptions: any[] = [
@@ -110,10 +93,19 @@ export class GoogleMapsComponent {
     }
   }
 
+  
+  
   takeScreenshot(){
-    this.captureService.getImage(this.mapElement,true).pipe(
+    
+    this.captureService.getImage(this.mapElement,false, {
+      x: 50,
+      y: 150,
+      width: 256,
+      height: 256,
+    }).pipe(
       tap(img => {
-        console.log("screenshot taken : "+img)
+        console.log("screenshot taken : "+img);
+        this.captureService.downloadImage(img);
       })
     ).subscribe()
   }

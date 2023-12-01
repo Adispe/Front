@@ -35,12 +35,11 @@
 
 
 <div #screen class="screen">
-  <google-map
+  <google-map #maps
     class="google-maps"
-    height="93%"
+    height="100%"
     width="100%"
-    [zoom]="zoom"
     [center]="center"
-    [options]="options"
+    [options]="mapoptions"
   ></google-map>
 </div>
