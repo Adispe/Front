@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -11,14 +12,18 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string) {
-    if(email === 'test' && password === 'test') {
-      return true
+  login(data: any): Observable<any> {
+    if (data.username === "test" && data.password === "test") {
+      return new Observable(() => {
+        "Login Successful";
+      });
     } else {
-      return false
+      return new Observable(() => {
+        "invalid credentials";
+      });
     }
     const url = `${this.apiUrl}/login`;
-    const body = { email, password };
+    const body = data;
     return this.http.post(url, body);
   }
 

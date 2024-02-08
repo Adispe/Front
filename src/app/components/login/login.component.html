@@ -1,7 +1,6 @@
 <div class="example-container mat-elevation-z8">
-  <div class="example-loading-shade" *ngIf="isLoadingResults">
-  </div>
-  <mat-card class="example-card" @fadeAnimation>
+  <div class="example-loading-shade" *ngIf="isLoadingResults"></div>
+  <mat-card class="example-card">
     <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
       <h2>Log In</h2>
       <mat-form-field class="example-full-width">
@@ -57,7 +56,7 @@
         <h4>Don't have an account?</h4>
       </div>
       <div class="button-row">
-        <a mat-flat-button color="primary" [routerLink]="['/register']"
+        <a mat-flat-button color="primary"
           ><mat-icon>how_to_reg</mat-icon>Register</a
         >
       </div>
