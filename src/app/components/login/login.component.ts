@@ -76,18 +76,19 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.isLoadingResults = true;
 
     this.authService.login(this.loginForm.value).subscribe({
-      next: (v) => {
-        console.log('%c⧭', 'color: #1d5673', v);
-        console.log('%c⧭', 'color: #ffa640', "next is successful");
+      next: (data) => {
+        console.log("%c⧭", "color: #1d5673", data);
+        console.log("%c⧭", "color: #ffa640", "next is successful");
         this.isLoadingResults = false;
         this.authService.authenticate();
         this.authService.setToken("milk");
         this.openSnackBar();
         this.router.navigate(["/"]);
       },
-      error: (e) => {
-        console.log('%c⧭', 'color: #00b300', "login is error");
-        console.error(e)},
+      error: (err) => {
+        console.log("%c⧭", "color: #00b300", "login is error");
+        console.error(err);
+      },
       complete: () => console.info("complete"),
     });
   }
