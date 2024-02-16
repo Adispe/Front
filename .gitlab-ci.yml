@@ -1,0 +1,12 @@
+stages:
+  - test
+
+test:
+  stage: test
+  image: trion/ng-cli-karma:16.0.0
+  script:
+    - npm install
+    - npm run test-ci
+  coverage: '/Lines \W+: (\d+\.\d+)%.*/'
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
