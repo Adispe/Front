@@ -27,9 +27,8 @@
     "@babel/preset-typescript": "^7.23.3",
     "babel-plugin-istanbul": "^6.1.1",
     "istanbul-lib-coverage": "^3.2.2",
-    "nyc": "^15.1.0",
-    "cypress": "^12.16.0",
     "ngx-capture": "^0.13.0",
+    "nyc": "^15.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -40,8 +39,11 @@
     "@angular/compiler-cli": "^16.0.0",
     "@compodoc/compodoc": "^1.1.23",
     "@types/jasmine": "~4.3.0",
-    "cypress": "^13.6.4",
     "jasmine-core": "~4.6.0",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-coverage": "^2.2.1",
+    "karma-jasmine": "^5.1.0",
+    "karma-jasmine-html-reporter": "^2.1.0",
     "typescript": "~5.0.2"
   }
 }
