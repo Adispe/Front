@@ -1,27 +1,40 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { MatToolbarModule } from "@angular/material/toolbar";
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent]
-  }));
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [AppComponent, HeaderComponent],
+      imports: [RouterTestingModule, MatToolbarModule],
+    }).compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'frontend'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('frontend');
+  it('should have the correct title', () => {
+    expect(component.title).toEqual('skyscan');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('frontend app is running!');
+  it('should render app-header and router-outlet', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    const appHeader = compiled.querySelector('app-header');
+    const routerOutlet = compiled.querySelector('router-outlet');
+
+    expect(appHeader).toBeTruthy();
+    expect(routerOutlet).toBeTruthy();
   });
 });

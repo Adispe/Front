@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 export class AuthService {
   private isAuthenticated = false;
   private tokenKey = "auth_token";
-  private apiUrl = "http://example.com/api";
+  public apiUrl = "http://example.com/api";
 
   constructor(private http: HttpClient) {}
 
