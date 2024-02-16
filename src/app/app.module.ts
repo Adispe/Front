@@ -20,7 +20,9 @@ import { HttpClientModule } from "@angular/common/http";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { LoginComponent } from "./components/login/login.component";
+import { AuthComponent } from "./components/auth/auth.component";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { NgxCaptureModule } from 'ngx-capture';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     ProfileComponent,
     RegisterComponent,
     LoginComponent,
+    AuthComponent,
   ],
   imports: [
     HttpClientModule,
@@ -48,7 +51,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgxCaptureModule
   ],
   providers: [],
   bootstrap: [AppComponent],
