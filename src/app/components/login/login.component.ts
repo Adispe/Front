@@ -74,28 +74,24 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   onFormSubmit(): void {
     this.isLoadingResults = true;
-    if (this.authService.login(this.loginForm.value, "password")) {
-      this.isLoadingResults = false;
-      this.authService.authenticate();
-      this.authService.setToken('milk');
-      this.openSnackBar();
-      this.router.navigate(["/"]);
-    }
-    // this.authService.login(this.loginForm.value, "password").subscribe({
-    //   next: (res: any) => {
-    //     this.isLoadingResults = false;
-    //     this.authService.authenticate();
-    //     this.authService.setToken(res.token);
-    //     this.openSnackBar();
-    //     this.router.navigate(["/dashboard"]);
-    //   },
-    //   error: (err: any) => {
-    //     console.log(err);
-    //     this.isLoadingResults = false;
-    //   },
-    // });
-  }
 
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (data) => {
+        console.log("%c⧭", "color: #1d5673", data);
+        console.log("%c⧭", "color: #ffa640", "next is successful");
+        this.isLoadingResults = false;
+        this.authService.authenticate();
+        this.authService.setToken("milk");
+        this.openSnackBar();
+        this.router.navigate(["/"]);
+      },
+      error: (err) => {
+        console.log("%c⧭", "color: #00b300", "login is error");
+        console.error(err);
+      },
+      complete: () => console.info("complete"),
+    });
+  }
   openSnackBar() {
     this._snackBar.open("Connexion successful", "x", {
       horizontalPosition: "center",

@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "compodoc:build": "compodoc -p tsconfig.doc.json",
+    "compodoc:build-and-serve": "compodoc -p tsconfig.doc.json -s",
+    "compodoc:serve": "compodoc -s"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +24,10 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
+    "@babel/preset-typescript": "^7.23.3",
+    "babel-plugin-istanbul": "^6.1.1",
+    "istanbul-lib-coverage": "^3.2.2",
+    "nyc": "^15.1.0",
     "cypress": "^12.16.0",
     "ngx-capture": "^0.13.0",
     "rxjs": "~7.8.0",
@@ -31,7 +38,9 @@
     "@angular-devkit/build-angular": "^16.0.0",
     "@angular/cli": "~16.0.0",
     "@angular/compiler-cli": "^16.0.0",
+    "@compodoc/compodoc": "^1.1.23",
     "@types/jasmine": "~4.3.0",
+    "cypress": "^13.6.4",
     "jasmine-core": "~4.6.0",
     "typescript": "~5.0.2"
   }

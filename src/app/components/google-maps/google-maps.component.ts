@@ -12,6 +12,31 @@ import {GoogleMap} from "@angular/google-maps";
   styleUrls: ["./google-maps.component.css"],
 })
 export class GoogleMapsComponent {
+  zoom = 40;
+  public myControl = new FormControl<string | any>("");
+  center!: google.maps.LatLngLiteral;
+  options: google.maps.MapOptions = {
+    mapTypeId: "hybrid",
+    zoomControl: false,
+    scrollwheel: false,
+    disableDoubleClickZoom: true,
+    maxZoom: 15,
+    minZoom: 8,
+    disableDefaultUI: true,
+    styles: [
+      {
+        featureType: "all",
+        elementType: "labels",
+        stylers: [{ visibility: "off" }],
+      },
+      {
+        featureType: 'road',
+        elementType: 'geometry',
+        stylers: [{ visibility: 'off' }]
+      }
+    ],
+  };
+
 
   @ViewChild('screen', { static: true }) screen: ElementRef | any;
 
@@ -19,10 +44,7 @@ export class GoogleMapsComponent {
   mapoptions=MapOption;
   mapElement:any;
   
-  public myControl = new FormControl<string | any>("");
-  center!: google.maps.LatLngLiteral;
-
-  constructor(private captureService:NgxCaptureService) {}
+  constructor(private captureService: NgxCaptureService) {}
 
   ngAfterViewInit() {
     this.mapElement = this.screen.nativeElement;
