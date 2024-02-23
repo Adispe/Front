@@ -1,0 +1,41 @@
+.profile-card {
+    width: 300px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  .profile-avatar {
+    width: 60px;
+    height: 60px;
+    background-color: #ccc;
+    border-radius: 50%;
+  }
+  
+  .mat-card-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .mat-card-title {
+    margin-left: 10px;
+  }
+  
+  .mat-card-subtitle {
+    margin-left: 10px;
+    font-style: italic;
+  }
+  
+  .mat-card-content {
+    margin-top: 20px;
+  }
+  
+  .mat-card-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .dialogdiv{
+    display: flex;
+    justify-content: flex-end;
+  }
