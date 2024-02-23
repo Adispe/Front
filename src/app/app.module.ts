@@ -23,6 +23,8 @@ import { LoginComponent } from "./components/login/login.component";
 import { AuthComponent } from "./components/auth/auth.component";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { NgxCaptureModule } from 'ngx-capture';
+import { ResultsComponent } from './components/results/results.component';
+import { MatDialog , MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { NgxCaptureModule } from 'ngx-capture';
     RegisterComponent,
     LoginComponent,
     AuthComponent,
+    ResultsComponent,
   ],
   imports: [
     HttpClientModule,
@@ -52,7 +55,8 @@ import { NgxCaptureModule } from 'ngx-capture';
     ReactiveFormsModule,
     MatCardModule,
     MatSnackBarModule,
-    NgxCaptureModule
+    NgxCaptureModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],

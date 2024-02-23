@@ -5,6 +5,8 @@ import { NgxCaptureService } from 'ngx-capture';
 import { tap } from "rxjs";
 import { MapOption } from "src/app/helpers/helper";
 import {GoogleMap} from "@angular/google-maps";
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { ResultsComponent } from "../results/results.component";
 
 @Component({
   selector: "app-google-maps",
@@ -13,6 +15,7 @@ import {GoogleMap} from "@angular/google-maps";
 })
 export class GoogleMapsComponent {
   zoom = 40;
+  img = '';
   public myControl = new FormControl<string | any>("");
   center!: google.maps.LatLngLiteral;
   options: google.maps.MapOptions = {
@@ -44,7 +47,7 @@ export class GoogleMapsComponent {
   mapoptions=MapOption;
   mapElement:any;
   
-  constructor(private captureService: NgxCaptureService) {}
+  constructor(private captureService: NgxCaptureService, private dialogRef: MatDialog) {}
 
   ngAfterViewInit() {
     this.mapElement = this.screen.nativeElement;
@@ -64,8 +67,10 @@ export class GoogleMapsComponent {
           ? this._filter(name as string)
           : this.mockAutoCompleteOptions.slice();
       })
-    );
+    ); 
   }
+
+  
 
   zoomIn() {
     if (this.mapoptions.zoom && this.mapoptions.maxZoom && this.mapoptions.zoom < this.mapoptions.maxZoom)
@@ -126,9 +131,19 @@ export class GoogleMapsComponent {
       height: 256,
     }).pipe(
       tap(img => {
-        console.log("screenshot taken : "+img);
-        this.captureService.downloadImage(img);
+        //this.captureService.downloadImage(img);
+        this.img = img;
       })
-    ).subscribe()
+    ).subscribe(a => {
+      this.openDialog(this.img);
+    })
+
+    
+  }
+
+  openDialog(result: string){
+    this.dialogRef.open(ResultsComponent, {
+      data : result
+    });
   }
 }
