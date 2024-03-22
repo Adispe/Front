@@ -7,6 +7,8 @@ import { MapOption } from "src/app/helpers/helper";
 import {GoogleMap} from "@angular/google-maps";
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { ResultsComponent } from "../results/results.component";
+import { HttpClient } from "@angular/common/http";
+
 
 @Component({
   selector: "app-google-maps",
@@ -16,6 +18,7 @@ import { ResultsComponent } from "../results/results.component";
 export class GoogleMapsComponent {
   zoom = 40;
   img = '';
+  
   public myControl = new FormControl<string | any>("");
   center!: google.maps.LatLngLiteral;
   options: google.maps.MapOptions = {
@@ -47,7 +50,10 @@ export class GoogleMapsComponent {
   mapoptions=MapOption;
   mapElement:any;
   
-  constructor(private captureService: NgxCaptureService, private dialogRef: MatDialog) {}
+  constructor(private captureService: NgxCaptureService, 
+    private dialogRef: MatDialog,
+     private http: HttpClient,
+    ) {}
 
   ngAfterViewInit() {
     this.mapElement = this.screen.nativeElement;
@@ -137,8 +143,6 @@ export class GoogleMapsComponent {
     ).subscribe(a => {
       this.openDialog(this.img);
     })
-
-    
   }
 
   openDialog(result: string){
@@ -146,4 +150,5 @@ export class GoogleMapsComponent {
       data : result
     });
   }
+
 }

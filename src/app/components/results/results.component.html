@@ -3,6 +3,6 @@
   <img [src]="data" alt="">
 </mat-dialog-content>
 <mat-dialog-actions class="dialogdiv">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+  <button mat-button [mat-dialog-close]="true">Reprendre</button>
+  <button mat-button [mat-dialog-close]="true" (click)="send()">Confirmer la sélection</button>
 </mat-dialog-actions>
