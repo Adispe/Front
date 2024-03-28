@@ -133,8 +133,8 @@ export class GoogleMapsComponent {
     this.captureService.getImage(this.mapElement,false, {
       x: 50,
       y: 150,
-      width: 256,
-      height: 256,
+      width: 190,
+      height: 190,
     }).pipe(
       tap(img => {
         //this.captureService.downloadImage(img);

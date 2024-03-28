@@ -6,34 +6,40 @@ import { HttpClient } from "@angular/common/http";
 })
 export class SendImageService {
 
-  public apiUrl = "http://127.0.0.1:3000";
+  public apiUrl = "http://localhost:5000";
 
   constructor(private http: HttpClient) { }
 
-  convertBaseToImg(dataURI: string) {
-    const splitDataURI = dataURI.split(',')
-    const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1])
-    const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
+  // Function to convert base64 to Blob
+  private base64ToBlob(base64String: string, type: string): Blob {
+    const byteCharacters = atob(base64String.split(',')[1]);
+    const byteArrays = [];
 
-    const ia = new Uint8Array(byteString.length)
-    for (let i = 0; i < byteString.length; i++)
-        ia[i] = byteString.charCodeAt(i)
-        
-        const blob = new Blob([ia], { type: mimeString })
-        const conversionResult = new FormData();
-        conversionResult.append('screenshot', blob, 'screenshot.png');
-        return conversionResult;
-        //return new File([blob], "file", { type: blob.type });
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+      const slice = byteCharacters.slice(offset, offset + 512);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    return new Blob(byteArrays, { type });
   }
   
   sendResult(img:any){
     if(img){
-      let conversionResult =  this.convertBaseToImg(img);
-      console.log(conversionResult);
-      // Envoie la requête HTTP POST avec l'image en base64
+
+      const blob = this.base64ToBlob(img, "image/jpeg")
+
+      const formData = new FormData();
+      formData.append('file', blob, 'image.jpeg');
+
       const url = `${this.apiUrl}/prediction`;
-      console.log('Image envoyée avec succès au backend'+conversionResult);
-      this.http.post(url, conversionResult ).subscribe(
+      this.http.post(url, formData).subscribe(
         (response) => {
           console.log('Image envoyée avec succès au backend', response);
         },
