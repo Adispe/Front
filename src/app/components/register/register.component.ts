@@ -55,7 +55,8 @@ export class RegisterComponent implements OnInit {
 
   onFormSubmit(): void {
     this.isLoadingResults = true;
-    this.authService.register(this.registerForm.value, 'password').subscribe({
+    const user = { username: this.registerForm.get('username')?.value.trim(), password: this.registerForm.get('password')?.value.trim() };
+    this.authService.register(user).subscribe({
       next: (res: any) => {
         this.isLoadingResults = false;
         this.router

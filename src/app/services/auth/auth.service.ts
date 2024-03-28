@@ -8,28 +8,19 @@ import { Observable } from "rxjs";
 export class AuthService {
   private isAuthenticated = false;
   private tokenKey = "auth_token";
-  public apiUrl = "http://example.com/api";
+  public apiUrl = "http://localhost:3000/auth";
 
   constructor(private http: HttpClient) {}
 
   login(data: any): Observable<any> {
-    if (data.username === "test" && data.password === "test") {
-      return new Observable(() => {
-        "Login Successful";
-      });
-    } else {
-      return new Observable(() => {
-        "invalid credentials";
-      });
-    }
-    const url = `${this.apiUrl}/login`;
+    const url = `${this.apiUrl}/register`;
     const body = data;
     return this.http.post(url, body);
   }
 
-  register(email: string, password: string) {
+  register(user: any) {
     const url = `${this.apiUrl}/register`;
-    const body = { email, password };
+    const body = { username: user.username, password: user.password };
     return this.http.post(url, body);
   }
 
