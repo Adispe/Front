@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SendImageService {
 
-  public apiUrl = "http://localhost:5000";
+  public apiUrl = environment.apiURL;
 
   constructor(private http: HttpClient) { }
 
