@@ -22,10 +22,11 @@ import { RegisterComponent } from "./components/register/register.component";
 import { LoginComponent } from "./components/login/login.component";
 import { AuthComponent } from "./components/auth/auth.component";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { NgxCaptureModule } from 'ngx-capture';
-import { ResultsComponent } from './components/results/results.component';
-import { MatDialog , MatDialogModule } from '@angular/material/dialog';
-import { IaresultComponent } from './components/iaresult/iaresult.component';
+import { NgxCaptureModule } from "ngx-capture";
+import { ResultsComponent } from "./components/results/results.component";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { IaresultComponent } from "./components/iaresult/iaresult.component";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { IaresultComponent } from './components/iaresult/iaresult.component';
     MatCardModule,
     MatSnackBarModule,
     NgxCaptureModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent],

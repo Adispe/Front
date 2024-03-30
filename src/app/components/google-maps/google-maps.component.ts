@@ -17,7 +17,7 @@ import { HttpClient } from "@angular/common/http";
 export class GoogleMapsComponent {
   zoom = 40;
   img = "";
-
+  public isLoading = false;
   public myControl = new FormControl<string | any>("");
   center!: google.maps.LatLngLiteral;
   options: google.maps.MapOptions = {
@@ -131,10 +131,21 @@ export class GoogleMapsComponent {
   }
 
   takeScreenshot() {
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+  
+    // Calculate the center coordinates
+    const centerX = viewportWidth / 2;
+    const centerY = viewportHeight / 2;
+  
+    // Adjust the coordinates to get the top-left corner of the capture area
+    const captureX = centerX - 128; // Half of the width (256 / 2)
+    const captureY = centerY - 128; // Half of the height (256 / 2)
+  
     this.captureService
       .getImage(this.mapElement, false, {
-        x: 50,
-        y: 150,
+        x: captureX,
+        y: captureY,
         width: 256,
         height: 256,
         scale: 1,

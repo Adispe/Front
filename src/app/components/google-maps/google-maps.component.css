@@ -1,3 +1,9 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .google-maps {
   position: relative;
   top: 0;
@@ -38,4 +44,25 @@
 
 .screen{
   height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.screenshot-container {
+  z-index: 2;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.screenshot-zone {
+  width: 256px;
+  height: 256px;
+  border: 10px dashed #ffffff; /* Dashed border */
+
+}
+
+.spinner {
+  z-index: 999;
+  position: absolute;
 }
