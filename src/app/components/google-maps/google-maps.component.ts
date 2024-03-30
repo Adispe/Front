@@ -1,14 +1,13 @@
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Observable, startWith, map } from "rxjs";
-import { NgxCaptureService } from 'ngx-capture';
+import { NgxCaptureService } from "ngx-capture";
 import { tap } from "rxjs";
 import { MapOption } from "src/app/helpers/helper";
-import {GoogleMap} from "@angular/google-maps";
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { GoogleMap } from "@angular/google-maps";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { ResultsComponent } from "../results/results.component";
 import { HttpClient } from "@angular/common/http";
-
 
 @Component({
   selector: "app-google-maps",
@@ -17,8 +16,8 @@ import { HttpClient } from "@angular/common/http";
 })
 export class GoogleMapsComponent {
   zoom = 40;
-  img = '';
-  
+  img = "";
+
   public myControl = new FormControl<string | any>("");
   center!: google.maps.LatLngLiteral;
   options: google.maps.MapOptions = {
@@ -36,24 +35,23 @@ export class GoogleMapsComponent {
         stylers: [{ visibility: "off" }],
       },
       {
-        featureType: 'road',
-        elementType: 'geometry',
-        stylers: [{ visibility: 'off' }]
-      }
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [{ visibility: "off" }],
+      },
     ],
   };
 
+  @ViewChild("screen", { static: true }) screen: ElementRef | any;
 
-  @ViewChild('screen', { static: true }) screen: ElementRef | any;
+  mapoptions = MapOption;
+  mapElement: any;
 
-
-  mapoptions=MapOption;
-  mapElement:any;
-  
-  constructor(private captureService: NgxCaptureService, 
+  constructor(
+    private captureService: NgxCaptureService,
     private dialogRef: MatDialog,
-     private http: HttpClient,
-    ) {}
+    private http: HttpClient
+  ) {}
 
   ngAfterViewInit() {
     this.mapElement = this.screen.nativeElement;
@@ -73,18 +71,24 @@ export class GoogleMapsComponent {
           ? this._filter(name as string)
           : this.mockAutoCompleteOptions.slice();
       })
-    ); 
+    );
   }
 
-  
-
   zoomIn() {
-    if (this.mapoptions.zoom && this.mapoptions.maxZoom && this.mapoptions.zoom < this.mapoptions.maxZoom)
+    if (
+      this.mapoptions.zoom &&
+      this.mapoptions.maxZoom &&
+      this.mapoptions.zoom < this.mapoptions.maxZoom
+    )
       this.mapoptions.zoom++;
   }
 
   zoomOut() {
-    if (this.mapoptions.zoom && this.mapoptions.minZoom && this.mapoptions.zoom > this.mapoptions.minZoom)
+    if (
+      this.mapoptions.zoom &&
+      this.mapoptions.minZoom &&
+      this.mapoptions.zoom > this.mapoptions.minZoom
+    )
       this.mapoptions.zoom--;
   }
 
@@ -126,29 +130,29 @@ export class GoogleMapsComponent {
     }
   }
 
-  
-  
-  takeScreenshot(){
-    
-    this.captureService.getImage(this.mapElement,false, {
-      x: 50,
-      y: 150,
-      width: 256,
-      height: 256,
-    }).pipe(
-      tap(img => {
-        //this.captureService.downloadImage(img);
-        this.img = img;
+  takeScreenshot() {
+    this.captureService
+      .getImage(this.mapElement, false, {
+        x: 50,
+        y: 150,
+        width: 256,
+        height: 256,
+        scale: 1,
       })
-    ).subscribe(a => {
-      this.openDialog(this.img);
-    })
+      .pipe(
+        tap((img) => {
+          //this.captureService.downloadImage(img);
+          this.img = img;
+        })
+      )
+      .subscribe((a) => {
+        this.openDialog(this.img);
+      });
   }
 
-  openDialog(result: string){
+  openDialog(result: string) {
     this.dialogRef.open(ResultsComponent, {
-      data : result
+      data: result,
     });
   }
-
 }

@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>Install Angular</h2>
+<h2 mat-dialog-title *ngIf="!IAResult">Votre sélection</h2>
+<h2 mat-dialog-title *ngIf="IAResult">Votre image traitée</h2>
 <mat-dialog-content class="mat-typography">
   <img [src]="data" alt="">
 </mat-dialog-content>

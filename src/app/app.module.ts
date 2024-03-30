@@ -25,6 +25,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { NgxCaptureModule } from 'ngx-capture';
 import { ResultsComponent } from './components/results/results.component';
 import { MatDialog , MatDialogModule } from '@angular/material/dialog';
+import { IaresultComponent } from './components/iaresult/iaresult.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { MatDialog , MatDialogModule } from '@angular/material/dialog';
     LoginComponent,
     AuthComponent,
     ResultsComponent,
+    IaresultComponent,
   ],
   imports: [
     HttpClientModule,
