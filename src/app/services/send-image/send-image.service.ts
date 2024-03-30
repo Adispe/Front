@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { environment } from 'src/environments/environment.development';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,7 @@ export class SendImageService {
     return new Blob(byteArrays, { type });
   }
   
-  sendResult(img:any){
-    if(img){
+  sendResult(img:any): Observable<any>{
 
       const blob = this.base64ToBlob(img, "image/jpeg")
 
@@ -40,16 +40,7 @@ export class SendImageService {
       formData.append('file', blob, 'image.jpeg');
 
       const url = `${this.apiUrl}/prediction`;
-      this.http.post(url, formData).subscribe(
-        (response) => {
-          console.log('Image envoyée avec succès au backend', response);
-        },
-        (error) => {
-          console.error('Erreur lors de l\'envoi de l\'image au backend', error);
-        }
-      );
-    }
-
+      return this.http.post(url, formData);
     
   }
 }
