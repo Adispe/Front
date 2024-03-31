@@ -1,13 +1,14 @@
+import { HttpClient } from "@angular/common/http";
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { Observable, startWith, map } from "rxjs";
+import { MatDialog } from "@angular/material/dialog";
 import { NgxCaptureService } from "ngx-capture";
-import { tap } from "rxjs";
+import { Observable, map, startWith, tap } from "rxjs";
 import { MapOption } from "src/app/helpers/helper";
-import { GoogleMap } from "@angular/google-maps";
-import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { ResultsComponent } from "../results/results.component";
-import { HttpClient } from "@angular/common/http";
+import { IaresultComponent } from "../iaresult/iaresult.component";
+import { SendImageService } from "src/app/services/send-image/send-image.service";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-google-maps",
@@ -49,8 +50,9 @@ export class GoogleMapsComponent {
 
   constructor(
     private captureService: NgxCaptureService,
-    private dialogRef: MatDialog,
-    private http: HttpClient
+    private dialog: MatDialog,
+    private sendimage: SendImageService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngAfterViewInit() {
@@ -131,17 +133,18 @@ export class GoogleMapsComponent {
   }
 
   takeScreenshot() {
+    this.isLoading = true;
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
-  
+
     // Calculate the center coordinates
     const centerX = viewportWidth / 2;
     const centerY = viewportHeight / 2;
-  
+
     // Adjust the coordinates to get the top-left corner of the capture area
     const captureX = centerX - 128; // Half of the width (256 / 2)
     const captureY = centerY - 128; // Half of the height (256 / 2)
-  
+
     this.captureService
       .getImage(this.mapElement, false, {
         x: captureX,
@@ -157,13 +160,33 @@ export class GoogleMapsComponent {
         })
       )
       .subscribe((a) => {
+        this.isLoading = false;
         this.openDialog(this.img);
       });
   }
 
   openDialog(result: string) {
-    this.dialogRef.open(ResultsComponent, {
+    const dialogRef = this.dialog.open(ResultsComponent, {
       data: result,
+    });
+    dialogRef.afterClosed().subscribe((res: any) => {
+      if (res) {
+        this.isLoading = true;
+        this.sendimage.sendResult(res).subscribe({
+          next: (res: any) => {
+            this.isLoading = false;
+            const objectURL = "data:image/png;base64," + res.data;
+            const base64Img = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+
+            this.dialog.open(IaresultComponent, {
+              data: { base64Img, previousImg: this.img },
+            });
+          },
+          error: (err: any) => {
+            console.log(err);
+          },
+        });
+      }
     });
   }
 }
