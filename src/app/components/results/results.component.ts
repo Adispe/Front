@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output, ViewChild } from "@angular/core";
+import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 @Component({
   selector: "app-results",
@@ -12,7 +12,6 @@ export class ResultsComponent implements OnInit {
   ) {}
 
   @ViewChild("screen", { static: true }) screen: any;
-  @Output() IAResponse = new EventEmitter();
 
   ngOnInit(): void {}
 

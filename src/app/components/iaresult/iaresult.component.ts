@@ -14,5 +14,6 @@ export class IaresultComponent {
     this.previousImg = data.previousImg;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 }

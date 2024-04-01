@@ -16,7 +16,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgxCaptureModule } from "ngx-capture";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { AuthComponent } from "./components/auth/auth.component";
 import { GoogleMapsComponent } from "./components/google-maps/google-maps.component";
 import { HomeComponent } from "./components/home/home.component";
 import { IaresultComponent } from "./components/iaresult/iaresult.component";
@@ -38,7 +37,6 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     ProfileComponent,
     RegisterComponent,
     LoginComponent,
-    AuthComponent,
     ResultsComponent,
     IaresultComponent,
   ],

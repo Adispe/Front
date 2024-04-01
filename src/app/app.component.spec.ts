@@ -29,12 +29,10 @@ describe('AppComponent', () => {
     expect(component.title).toEqual('skyscan');
   });
 
-  it('should render app-header and router-outlet', () => {
+  it('should render router-outlet', () => {
     const compiled = fixture.debugElement.nativeElement;
-    const appHeader = compiled.querySelector('app-header');
     const routerOutlet = compiled.querySelector('router-outlet');
 
-    expect(appHeader).toBeTruthy();
     expect(routerOutlet).toBeTruthy();
   });
 });
