@@ -2,6 +2,8 @@ stages:
   - test
 
 test:
+  tags:
+    - docker
   stage: test
   image: trion/ng-cli-karma:16.0.0
   script:

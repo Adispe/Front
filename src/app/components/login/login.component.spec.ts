@@ -1,4 +1,10 @@
-import { ComponentFixture, TestBed, waitForAsync, fakeAsync, tick } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+  fakeAsync,
+  tick,
+} from "@angular/core/testing";
 import { LoginComponent } from "./login.component";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { RouterTestingModule } from "@angular/router/testing";
@@ -11,6 +17,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { of } from "rxjs";
+import { HeaderComponent } from "src/app/layout/header/header.component";
+import { MatToolbarModule } from "@angular/material/toolbar";
 
 class MockAuthService {
   login() {
@@ -29,7 +37,7 @@ describe("LoginComponent", () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [LoginComponent],
+      declarations: [LoginComponent, HeaderComponent],
       imports: [
         MatSnackBarModule,
         RouterTestingModule,
@@ -40,8 +48,13 @@ describe("LoginComponent", () => {
         MatIconModule,
         MatButtonModule,
         BrowserAnimationsModule,
+        MatToolbarModule
       ],
-      providers: [{ provide: AuthService, useClass: MockAuthService }],
+      providers: [
+        MatToolbarModule,
+        RouterTestingModule,
+        { provide: AuthService, useClass: MockAuthService },
+      ],
     }).compileComponents();
   }));
 
@@ -54,7 +67,12 @@ describe("LoginComponent", () => {
 
     TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      imports: [ReactiveFormsModule, MatSnackBarModule, RouterTestingModule, MatCardModule],
+      imports: [
+        ReactiveFormsModule,
+        MatSnackBarModule,
+        RouterTestingModule,
+        MatCardModule,
+      ],
       providers: [{ provide: AuthService, useValue: spy }],
     });
 
