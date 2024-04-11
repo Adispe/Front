@@ -1,6 +1,18 @@
 <mat-card class="mat-card">
-    <mat-card-title>Votre image analysée</mat-card-title>
-  <mat-card-content
-    ><img mat-card-image [src]="previousImg" /><img mat-card-image [src]="base64Img"
-  /></mat-card-content>
+  <mat-card-title>Votre image analysée</mat-card-title>
+  <mat-card-content class="content"
+    ><img mat-card-image [src]="previousImg" /><img
+      mat-card-image
+      [src]="base64Img"
+    />
+    <div>
+      <div class="legend-line" *ngFor="let area of class_areas | keyvalue">
+        <div
+          class="rectangle"
+          [ngStyle]="{ 'background-color': getClassColor(area.key) }"
+        ></div>
+        <div>{{ area.key }} : {{ area.value }}%</div>
+      </div>
+    </div>
+  </mat-card-content>
 </mat-card>

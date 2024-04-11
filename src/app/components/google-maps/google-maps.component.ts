@@ -177,9 +177,11 @@ export class GoogleMapsComponent {
             this.isLoading = false;
             const objectURL = "data:image/png;base64," + res.data;
             const base64Img = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+            const class_areas = res.class_areas
+            const class_colors = res.class_colors
 
             this.dialog.open(IaresultComponent, {
-              data: { base64Img, previousImg: this.img },
+              data: { base64Img, previousImg: this.img, class_areas, class_colors },
             });
           },
           error: (err: any) => {
