@@ -19,8 +19,9 @@ export class IaresultComponent {
   }
 
   ngOnInit() {
-    this.clearEmptyAreas(this.class_areas);
-    console.log("%c⧭", "color: #997326", this.class_areas);
+    if (this.class_areas) {
+      this.clearEmptyAreas(this.class_areas);
+    }
   }
   clearEmptyAreas(class_areas: any) {
     const total: any = Object.values(class_areas).reduce(
