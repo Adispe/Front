@@ -12,6 +12,7 @@ export class IaresultComponent {
   public class_areas: any;
   public class_colors: any;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+    console.log('%c⧭', 'color: #1d3f73', data);
     this.base64Img = data.base64Img;
     this.previousImg = data.previousImg;
     this.class_areas = data.class_areas;

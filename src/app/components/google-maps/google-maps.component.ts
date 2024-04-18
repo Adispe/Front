@@ -175,8 +175,7 @@ export class GoogleMapsComponent {
         this.sendimage.sendResult(res).subscribe({
           next: (res: any) => {
             this.isLoading = false;
-            const objectURL = "data:image/png;base64," + res.data;
-            const base64Img = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+            const base64Img = "data:image/png;base64," + res.image_data;
             const class_areas = res.class_areas
             const class_colors = res.class_colors
 
